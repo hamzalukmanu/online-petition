@@ -1,0 +1,17 @@
+users
+- user_id
+- email
+- password
+- name
+
+petition
+- petition_id
+- petition_details
+- petition_title
+- petition_supporters
+- petition_category_id
+- petition_image
+
+category
+- category_id
+- category_name
