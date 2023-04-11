@@ -8,9 +8,13 @@ petition
 - petition_id
 - petition_details
 - petition_title
-- petition_supporters
 - petition_category_id
 - petition_image
+
+petition_supporters
+- petition_supporters_id
+- petition_id
+- user_id
 
 category
 - category_id

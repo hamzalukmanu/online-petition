@@ -22,9 +22,6 @@ include("./widgets/main_nav.php");
     <select name="category">
         <option>Choose Category of your petition</option>
         <option value="wildlife">WildLife</option>
-        <option value="environment">Environment</option>
-        <option value="racism">Racism</option>
-        <option value="childabuse">Child Abuse</option>
     </select>
     <br/>
 
