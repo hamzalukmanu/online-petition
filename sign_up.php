@@ -51,32 +51,6 @@ include("./widgets/main_nav.php");
         </div>
     </div>
 </section>
-
-<!--
-<form style="text-align: center;" action="./activities/sign_up_activity.php" method="post">
-
-    <label for="#username"><i>
-            <h5>Name:</h5>
-        </i></label>
-    <br/>
-    <input id="username" required name="name" type="text">
-
-    <label for="#email"><i>
-            <h5>Email:</h5>
-        </i></label>
-    <br/>
-    <input id="email" required name="email" type="email">
-
-    <label for="#password"><i>
-            <h5>Password:</h5>
-        </i></label>
-
-    <input id="password" required name="password" type="password">
-    <br/>
-    <br/>
-    <input type="submit">
-</form>
--->
 <?php
 include("./widgets/footer.php");
 ?>

@@ -20,6 +20,15 @@ function createUser($details)
 function authenticateUser($details)
 {
     $sql = 'SELECT * FROM `users` WHERE `user_email` = "' . $details["email"] . '" AND `user_password` = "' . $details["password"] . '"';
+    return getResults($sql);
+}
+
+/**
+ * @param string $sql
+ * @return bool|mysqli_result
+ */
+function getResults(string $sql)
+{
     $conn = connectDB();
 
     $results = $conn->query($sql);

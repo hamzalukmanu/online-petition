@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2023 at 07:12 AM
+-- Generation Time: Apr 12, 2023 at 12:18 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -42,9 +42,21 @@ CREATE TABLE `petition` (
   `petition_id` int(11) NOT NULL,
   `petition_title` varchar(100) NOT NULL,
   `petition_details` varchar(255) NOT NULL,
-  `petition_supporters` int(11) NOT NULL,
   `petition_category_id` int(11) NOT NULL,
-  `petition_image` varchar(255) NOT NULL
+  `petition_image` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petition_supporters`
+--
+
+CREATE TABLE `petition_supporters` (
+  `petition_supporters_id` int(11) NOT NULL,
+  `petition_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -66,7 +78,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_email`, `user_password`, `user_name`) VALUES
 (1, 'joe@jkm.cok', '21232f297a57a5a743894a0e4a801fc3', 'Joe'),
-(2, 'posn@msj.cos', '21232f297a57a5a743894a0e4a801fc3', 'GT');
+(2, 'posn@msj.cos', '21232f297a57a5a743894a0e4a801fc3', 'GT'),
+(3, 'men@men.com', '21232f297a57a5a743894a0e4a801fc3', 'Micky');
 
 --
 -- Indexes for dumped tables
@@ -83,6 +96,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `petition`
   ADD PRIMARY KEY (`petition_id`);
+
+--
+-- Indexes for table `petition_supporters`
+--
+ALTER TABLE `petition_supporters`
+  ADD PRIMARY KEY (`petition_supporters_id`);
 
 --
 -- Indexes for table `users`
@@ -107,10 +126,16 @@ ALTER TABLE `petition`
   MODIFY `petition_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `petition_supporters`
+--
+ALTER TABLE `petition_supporters`
+  MODIFY `petition_supporters_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
