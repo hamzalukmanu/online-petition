@@ -5,20 +5,54 @@ include ("widgets/check_sessions.php");
 <html id="sign_up" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Petition Power | Sign Up</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="assets/css/styles.css" rel="stylesheet"/>
 </head>
 
 <body>
 <?php
 include("./widgets/main_nav.php");
 ?>
-<hr/>
+<section class="bg-light py-5">
+    <div class="container px-5 my-5 px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <h2 style="text-align: center;">Sign Up</h2>
+                <form action="./activities/sign_up_activity.php" method="post">
+                    <!-- Name input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
+                        <label for="name">Name</label>
+                    </div>
+                    <!-- Email address input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
+                        <label for="email">Email address</label>
+                    </div>
+                    <!-- Phone number input-->
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="password" name="password" type="password" placeholder="password" required />
+                        <label for="password">password</label>
+                    </div>
+                    <!-- Submit Button-->
+                    <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Sign Up</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h2 style="text-align: center;">Sign Up</h2>
-
+<!--
 <form style="text-align: center;" action="./activities/sign_up_activity.php" method="post">
 
     <label for="#username"><i>
@@ -42,6 +76,10 @@ include("./widgets/main_nav.php");
     <br/>
     <input type="submit">
 </form>
+-->
+<?php
+include("./widgets/footer.php");
+?>
 </body>
 
 </html>
