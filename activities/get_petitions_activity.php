@@ -12,6 +12,15 @@ function getAllPetitions()
     return "";
 }
 
+function getMyPetitions($id)
+{
+    $petition = getPetitions($id);
+    if ($petition) {
+        return $petition->fetch_all();
+    }
+    return "";
+}
+
 function getSinglePetition($id)
 {
     $petition = getPetition($id);

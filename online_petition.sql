@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 12:18 PM
+-- Generation Time: Apr 13, 2023 at 09:35 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.29
 
@@ -32,6 +32,14 @@ CREATE TABLE `categories` (
   `category_name` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`) VALUES
+(1, 'Wild Life'),
+(2, 'Child Abuse');
+
 -- --------------------------------------------------------
 
 --
@@ -41,7 +49,7 @@ CREATE TABLE `categories` (
 CREATE TABLE `petition` (
   `petition_id` int(11) NOT NULL,
   `petition_title` varchar(100) NOT NULL,
-  `petition_details` varchar(255) NOT NULL,
+  `petition_details` varchar(500) NOT NULL,
   `petition_category_id` int(11) NOT NULL,
   `petition_image` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -77,7 +85,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_email`, `user_password`, `user_name`) VALUES
-(1, 'joe@jkm.cok', '21232f297a57a5a743894a0e4a801fc3', 'Joe'),
+(1, 'joe@email.com', '21232f297a57a5a743894a0e4a801fc3', 'Joe'),
 (2, 'posn@msj.cos', '21232f297a57a5a743894a0e4a801fc3', 'GT'),
 (3, 'men@men.com', '21232f297a57a5a743894a0e4a801fc3', 'Micky');
 
@@ -95,13 +103,17 @@ ALTER TABLE `categories`
 -- Indexes for table `petition`
 --
 ALTER TABLE `petition`
-  ADD PRIMARY KEY (`petition_id`);
+  ADD PRIMARY KEY (`petition_id`),
+  ADD KEY `category_id` (`petition_category_id`),
+  ADD KEY `users_id` (`user_id`);
 
 --
 -- Indexes for table `petition_supporters`
 --
 ALTER TABLE `petition_supporters`
-  ADD PRIMARY KEY (`petition_supporters_id`);
+  ADD PRIMARY KEY (`petition_supporters_id`),
+  ADD KEY `petition_id` (`petition_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -117,25 +129,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `petition`
 --
 ALTER TABLE `petition`
-  MODIFY `petition_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `petition_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `petition_supporters`
 --
 ALTER TABLE `petition_supporters`
-  MODIFY `petition_supporters_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `petition_supporters_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `petition`
+--
+ALTER TABLE `petition`
+  ADD CONSTRAINT `category_id` FOREIGN KEY (`petition_category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `petition_supporters`
+--
+ALTER TABLE `petition_supporters`
+  ADD CONSTRAINT `petition_id` FOREIGN KEY (`petition_id`) REFERENCES `petition` (`petition_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

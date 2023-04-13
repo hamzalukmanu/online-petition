@@ -18,9 +18,13 @@ function createPetition($details)
     return false;
 }
 
-function getPetitions()
+function getPetitions($id=NULL)
 {
-    $sql = 'SELECT * FROM petition';
+    if ($id === NULL) {
+        $sql = 'SELECT * FROM petition';
+    } else {
+        $sql = 'SELECT * FROM petition WHERE user_id = '.$id;
+    }
     return getResults($sql);
 }
 
@@ -67,6 +71,21 @@ function support($details): bool
 
 function retract($details){
     $sql = "DELETE FROM `petition_supporters` WHERE `petition_id` = '". $details["petition_id"] ."' AND `user_id` = '". $details["user_id"] ."'";
+    $conn = connectDB();
+
+    if ($conn->query($sql) === true) {
+        return true;
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+
+    return false;
+}
+
+function delete($id){
+    $sql = "DELETE FROM `petition` WHERE `petition_id` = '". $id ."' ";
     $conn = connectDB();
 
     if ($conn->query($sql) === true) {
