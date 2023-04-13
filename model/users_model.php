@@ -1,5 +1,6 @@
 <?php
-require_once("../config/db_config.php");
+require_once ("../config/env.php");
+require_once(BASE_PATH."/config/db_config.php");
 
 function createUser($details)
 {
@@ -7,13 +8,15 @@ function createUser($details)
     $conn = connectDB();
 
     if ($conn->query($sql) === true) {
+        $conn->close();
         return true;
     } else {
 //        echo "Error: " . $sql . "<br>" . $conn->error;
+        $conn->close();
         return false;
     }
 
-    $conn->close();
+
 
     return false;
 }
@@ -21,6 +24,11 @@ function createUser($details)
 function authenticateUser($details)
 {
     $sql = 'SELECT * FROM `users` WHERE `user_email` = "' . $details["email"] . '" AND `user_password` = "' . $details["password"] . '"';
+    return getResults($sql);
+}
+
+function getUser($id){
+    $sql = 'SELECT * FROM `users` WHERE `user_id` = '.$id;
     return getResults($sql);
 }
 
