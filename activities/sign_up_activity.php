@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once ("../activities/session_activity.php");
 require_once ("../model/users_model.php");
 // echo "<pre>";
 //
@@ -13,9 +13,10 @@ if (!empty($_POST)) {
     ];
 
     if (createUser($form_data)){
-        $_SESSION["sign_up_msg"] = "success";
-        $_SESSION["sign_up_msg_time"] = time();
-        echo "here";
+        setSession("sign_up_msg", "success", 3);
         header("Location: ../login.php");
+    } else {
+        setSession("sign_up_error", "error", 3);
+        header("Location: ../sign_up.php");
     }
 }

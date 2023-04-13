@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once ("../activities/session_activity.php");
 require_once ("../model/users_model.php");
 
 if (!empty($_POST)) {
@@ -10,11 +10,14 @@ if (!empty($_POST)) {
 
     $authenticatedUser = authenticateUser($form_data);
     if ($authenticatedUser){
-        $_SESSION["logon_msg"] = "success";
-        $_SESSION["login_msg_time"] = time();
+        setSession("login_msg", "success", 3);
 
         $data = $authenticatedUser->fetch_row();
-        $_SESSION["current_user"] = $data[3];
-        header("Location: ../browse_petition.php");
+        setSession("current_user", $data[3]);
+        setSession("user_data", $data);
+        header("Location: ../start_petition.php");
+    } else {
+        setSession("login_error", "error", 3);
+        header("Location: ../login.php");
     }
 }
