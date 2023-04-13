@@ -10,7 +10,9 @@ function setSession($name, $value, $ttl = 1000000)
 
 function getSession($name)
 {
-    return $_SESSION[$name];
+    if(isset($_SESSION[$name]) && !empty($_SESSION[$name])){
+        return $_SESSION[$name];
+    }
 }
 
 function sessionHas($name): bool
@@ -24,7 +26,7 @@ function sessionHas($name): bool
 
 function getCurrentFile()
 {
-    $script = explode("\\", __FILE__);
+    $script = explode("/", $_SERVER["REQUEST_URI"]);
     return end($script);
 }
 
@@ -54,7 +56,9 @@ function activeSession($file)
         "online_petition.sql",
         "README.md",
         "test.php",
-        "index.php"
+        "index.php",
+        "login.php",
+        "sign_up.php"
     ];
 
     foreach($notIncluded as $remove){
@@ -63,10 +67,40 @@ function activeSession($file)
 
     if (!sessionHas("current_user")) {
         if (in_array($file, $pages)) {
-            header("location: ../login.php");
+            header("location: login.php");
         }
     }
 }
- //TODO add sessions and page redirections to all pages
+
+function sendToast($header, $message, $type = "success")
+{
+    echo '<div class="toast- position-fixed top-0 end-0 p-3">
+            <div id="liveToast" class="toast text-bg-'. $type .'" role="alert" aria-live="assertive" aria-atomic="true">
+                 <div class="toast-header">
+                 <strong class="me-auto">'.$header.'</strong>
+                 <small>a few mins ago</small>
+                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                 </div>
+                 <div class="toast-body">
+                 '. $message .'
+                 </div>
+                 </div>
+                 </div>
+            
+            <script>
+                let toastLiveExample = document.getElementById("liveToast")
+                let toast = new bootstrap.Toast(toastLiveExample)
+                toast.show()
+            </script>';
+}
+
+function sendAlert($message, $type="success"){
+    echo '<div class="alert alert-'. $type .' alert-dismissible" role="alert">
+                '. $message .'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+}
+
+//TODO add sessions and page redirections to all pages
 
 

@@ -14,6 +14,10 @@ if (!empty($_POST)) {
 
         $data = $authenticatedUser->fetch_row();
         setSession("current_user", $data[3]);
-        header("Location: ../browse_petition.php");
+        setSession("user_data", $data);
+        header("Location: ../start_petition.php");
+    } else {
+        setSession("login_error", "error", 3);
+        header("Location: ../login.php");
     }
 }

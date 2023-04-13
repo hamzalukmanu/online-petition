@@ -15,5 +15,8 @@ if (!empty($_POST)) {
     if (createUser($form_data)){
         setSession("sign_up_msg", "success", 3);
         header("Location: ../login.php");
+    } else {
+        setSession("sign_up_error", "error", 3);
+        header("Location: ../sign_up.php");
     }
 }

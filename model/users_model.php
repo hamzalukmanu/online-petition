@@ -3,13 +3,14 @@ require_once("../config/db_config.php");
 
 function createUser($details)
 {
-    $sql = "INSERT INTO users (user_email, user_password, user_name) VALUES ('" . $details["email"] . "', '" . $details["password"] . "', '" . $details["name"] . "')";
+    $sql = "INSERT INTO user (user_email, user_password, user_name) VALUES ('" . $details["email"] . "', '" . $details["password"] . "', '" . $details["name"] . "')";
     $conn = connectDB();
 
     if ($conn->query($sql) === true) {
         return true;
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+//        echo "Error: " . $sql . "<br>" . $conn->error;
+        return false;
     }
 
     $conn->close();

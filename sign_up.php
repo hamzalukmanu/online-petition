@@ -27,6 +27,11 @@ include("./widgets/main_nav.php");
     <div class="container px-5 my-5 px-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
+                <?php
+                if (sessionHas("sign_up_error")){
+                    sendAlert("An error occurred while creating your account. Please try again later!", "danger");
+                }
+                ?>
                 <h2 style="text-align: center;">Sign Up</h2>
                 <form action="./activities/sign_up_activity.php" method="post">
                     <!-- Name input-->

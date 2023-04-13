@@ -3,7 +3,7 @@ require_once("../config/db_config.php");
 
 function createPetition($details)
 {
-    $sql = "INSERT INTO petition (petition_title, petition_details, petition_category_id, petition_image) VALUES ('" . $details["title"] . "', '" . $details["details"] . "', '" . $details["category_id"] . "', '" . $details["image"] . "')";
+    $sql = "INSERT INTO petition (petition_title, petition_details, petition_category_id, petition_image, user_id) VALUES ('" . $details["title"] . "', '" . $details["details"] . "', '" . $details["category_id"] . "', '" . $details["image"] . "', '". $details["user_id"] ."')";
     $conn = connectDB();
 
     if ($conn->query($sql) === true) {

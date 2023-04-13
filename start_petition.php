@@ -9,7 +9,7 @@ include ("widgets/check_sessions.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Petition Power | Sign Up</title>
+    <title>Petition Power | Start Petition</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <!-- Bootstrap icons-->
@@ -28,6 +28,16 @@ include("./widgets/main_nav.php");
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
                 <h2 style="text-align: center;">Start Petition</h2>
+                <?php
+                if (sessionHas("create_petition_msg")) {
+                    sendAlert("Petition created successfully");
+                } else if (sessionHas("upload_error")){
+                    sendAlert("Unable to upload your image. Please try another image", "danger");
+                } else if (sessionhas("create_petition_error")){
+                    sendAlert("An error occurred while creating petition. Please try again", "danger");
+                }
+                ?>
+
                 <form action="./activities/start_petition_activity.php" method="post" enctype="multipart/form-data">
                     <!-- title input-->
                     <div class="form-floating mb-3">
@@ -50,7 +60,7 @@ include("./widgets/main_nav.php");
                     </div>
                     <!-- Phone number input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="image" name="password"  accept=".jpg, .png, .jpeg, .webp" type="file" required />
+                        <input class="form-control" id="image" name="image"  accept=".jpg, .png, .jpeg, .webp" type="file" required />
                         <label for="image">Choose Image</label>
                     </div>
                     <!-- Submit Button-->
@@ -62,6 +72,10 @@ include("./widgets/main_nav.php");
 </section>
 <?php
 include("./widgets/footer.php");
+
+if(sessionHas("login_msg")) {
+    sendToast("Notifications", getSession("current_user") . " has logged in successfully");
+}
 ?>
 </body>
 
