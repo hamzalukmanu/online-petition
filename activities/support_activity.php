@@ -28,5 +28,14 @@ if (!empty($_POST)) {
             }
             break;
 
+        case "delete":
+                $form_data = $_POST["petition_id"];
+                if (delete($form_data)) {
+                    echo json_encode(['msg' => "success"]);
+                } else {
+                    echo json_encode(['msg' => "error"]);
+                }
+                break;
+
     }
 }

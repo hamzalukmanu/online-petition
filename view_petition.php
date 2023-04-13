@@ -77,6 +77,12 @@ include("./widgets/main_nav.php");
                             Support
                         </button>
                         <?php endif; ?>
+
+                        <?php if((string)$petition[5] == (string)getSession("user_data")[0]):?>
+                            <button id="delete" type="button" class="mt-3 btn btn-danger">
+                                Delete petition
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -101,6 +107,7 @@ include("./widgets/footer.php");
 <script>
     let supportBtn = $("#support"),
         retractBtn = $("#retract"),
+        deleteBtn = $("#delete"),
         toastCard = $("#liveToast"),
         message = $("#message"),
         supporters = $("#supporters")
@@ -154,6 +161,33 @@ include("./widgets/footer.php");
                 toastCard.addClass("text-bg-warning");
                 toastCard.removeClass("text-bg-success");
                 message.text("You have already retracted your support for this petition")
+            }
+            let toastLiveExample = document.getElementById("liveToast")
+            let toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        });
+    });
+
+    deleteBtn.on("click", () => {
+        let data = {
+            user_id: <?= getSession("user_data")[0]?>,
+            petition_id: <?= $petition[0] ?>,
+            type: "delete"
+        }
+        $.post("activities/support_activity.php", data, function (data) {
+            data = JSON.parse(data);
+
+            if (data.msg === "success") {
+                toastCard.addClass("text-bg-success");
+                toastCard.removeClass("text-bg-warning");
+                message.text("You have deleted this petition successfully")
+                setTimeout(()=>{
+                    window.location.href = window.location.href.replace(window.location.href.split("/")[4], "browse_petition.php")
+                }, 1000)
+            } else {
+                toastCard.addClass("text-bg-danger");
+                toastCard.removeClass("text-bg-success");
+                message.text("An error occured. Please try again later!")
             }
             let toastLiveExample = document.getElementById("liveToast")
             let toast = new bootstrap.Toast(toastLiveExample)
