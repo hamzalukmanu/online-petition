@@ -1,6 +1,7 @@
 <?php
-require_once ("../activities/session_activity.php");
-require_once ("../model/users_model.php");
+require_once ("../config/env.php");
+require_once (BASE_PATH."/activities/session_activity.php");
+require_once (BASE_PATH."/model/users_model.php");
 
 if (!empty($_POST)) {
     $form_data = [

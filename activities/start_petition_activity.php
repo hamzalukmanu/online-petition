@@ -1,6 +1,7 @@
 <?php
-require_once ("../activities/session_activity.php");
-require_once("../model/petitions_model.php");
+require_once ("../config/env.php");
+require_once (BASE_PATH."activities/session_activity.php");
+require_once(BASE_PATH."/model/petitions_model.php");
 
 if (!empty($_POST)) {
     $form_data = [
